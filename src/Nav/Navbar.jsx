@@ -9,7 +9,7 @@ import {
 import { PiWebhooksLogo } from "react-icons/pi";
 import { Link, json, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import logo from "./logo.png";
 import { MdDarkMode } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md";
@@ -92,7 +92,7 @@ const Navbar = ({ toggleDarkMode, dark }) => {
         // style={styles.navbar}
       >
         <div
-          className={`navbar px-9  dark:text-white dark:bg-gray-800 bg-base-100  `}
+          className={`navbar px-1 sm:px-9 py-0 dark:text-white dark:bg-gray-800 bg-base-100  `}
         >
           <div className="flex-1">
             <Link to="/">
@@ -101,7 +101,7 @@ const Navbar = ({ toggleDarkMode, dark }) => {
                 transition={{ duration: 0.5 }}
                 style={{ display: "inline-block", cursor: "pointer" }}
               >
-                <PiWebhooksLogo className="text-3xl" />
+                <PiWebhooksLogo className="sm:text-3xl text-4xl" />
               </motion.div>
             </Link>
 
@@ -132,25 +132,41 @@ const Navbar = ({ toggleDarkMode, dark }) => {
                 type="text"
                 placeholder="Search Shoes"
                 className={`input dark:first-letter:bg-black input-bordered w-full max-w-xs ${
-                  searchs ? "block" : "hidden"
+                  searchs ? "block dark:bg-slate-700 text-white" : "hidden"
                 }`}
               />
             </div>
           </div>
           <div className="flex-none">
-            <div className="dropdown dropdown-end">
+            <div className="dropdown dropdown-end sm:hidden block ">
+              <label tabIndex={0} className="">
+                <BsFilter
+                  onClick={(e) => setSmallLinks(!smallLinks)}
+                  className="text-2xl"
+                />
+              </label>
+            </div>
+            <div
+              className={`${!auth ? "hidden" : "dropdown dropdown-end mr-2 "}`}
+            >
               <label
                 tabIndex={0}
                 onClick={toggleSearch}
-                className="btn btn-ghost btn-circle dark:"
+                className="btn btn-ghost  btn-circle dark:"
               >
-                <div className="indicator">
-                  <BsSearch className="text-2xl" />
+                <div className="indicator hidden sm:block">
+                  <BsSearch className="sm:text-2xl text-xl " />
                 </div>
               </label>
               {auth && (
-                <label tabIndex={0} className="btn btn-ghost btn-circle">
-                  <Link to="shoping" className="indicator">
+                <label
+                  tabIndex={0}
+                  className=" btn btn-ghost sm:relative top-0 absolute left-1 sm:top-1 sm:me-2 btn-circle"
+                >
+                  <Link
+                    to="shoping"
+                    className="indicator flex justify-center items-center    "
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5"
@@ -165,33 +181,28 @@ const Navbar = ({ toggleDarkMode, dark }) => {
                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                       />
                     </svg>
-                    <span className="badge badge-sm badge-accent dark:text-white  indicator-item">
+                    <span className="badge badge-sm w-4 badge-accent dark:text-white  indicator-item">
                       {data ? data.length : 0}
                     </span>
                   </Link>
                 </label>
               )}
             </div>
-            <div className="dropdown dropdown-end sm:hidden block ">
-              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                <BsFilter
-                  onClick={(e) => setSmallLinks(!smallLinks)}
-                  className="text-2xl"
-                />
-              </label>
-            </div>
+
             <div className="dropdown dropdown-end ">
               {auth ? (
-                <div className="relative ">
-                  <Link
-                    tabIndex={0}
-                    className="btn btn-ghost  bg-orange-600 btn-circle   hover:bg-orange-500  avatar"
-                    onClick={handleDropdownToggle}
-                  >
-                    <h1 className="font-bold text-xl text-white">
-                      {authObject}
-                    </h1>
-                  </Link>
+                <div className="relative items-center">
+                  <div className="flex justify-center">
+                    <Link
+                      tabIndex={0}
+                      className="h-7 w-7 sm:w-10 sm:h-10 flex justify-center  items-center  bg-orange-600 btn-circle   hover:bg-orange-500 "
+                      onClick={handleDropdownToggle}
+                    >
+                      <h1 className="font-bold items-center justify-center py-1 capitalize text-xl text-white">
+                        {authObject}
+                      </h1>
+                    </Link>
+                  </div>
 
                   {isDropdownOpen && (
                     <div
@@ -242,55 +253,85 @@ const Navbar = ({ toggleDarkMode, dark }) => {
           </div>
           {/* sm window links */}
         </div>
-        <div
-          className={`sm:hidden w-full  ${
-            smallLinks ? "block" : "hidden"
-          } bg-slate-100 h-36  relative `}
-        >
-          <div className="block">
-            <div className=" absolute right-0">
-              <BsXLg
-                className="m-4 cursor-pointer"
-                onClick={(e) => setSmallLinks(false)}
-              />
-            </div>
-            <div className="text-center">
-              <Link
-                onClick={(e) => setSmallLinks(false)}
-                to="/men"
-                className="block mx-3 pt-3 hover:cursor-pointer hover:underline"
-              >
-                Men
-              </Link>
-              <Link
-                onClick={(e) => setSmallLinks(false)}
-                to="/women"
-                className="block mx-3 pt-3 hover:cursor-pointer hover:underline"
-              >
-                Women
-              </Link>
-              <Link
-                onClick={(e) => setSmallLinks(false)}
-                to="/kid"
-                className="block mx-3 pt-3 hover:cursor-pointer hover:underline"
-              >
-                Kid
-              </Link>
-            </div>
-          </div>
-        </div>
+        <AnimatePresence>
+          {smallLinks && (
+            <motion.div
+              key="mobile-menu"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{
+                opacity: 0,
+                y: -60,
+                scale: 0.9,
+                transition: { duration: 0.5, ease: "easeInOut" },
+              }}
+              transition={{ duration: 0.3 }}
+              className="sm:hidden  w-full block bg-stone-300 text-black dark:bg-slate-600 dark:text-white h-36 relative"
+            >
+              <div className="absolute right-0">
+                <BsXLg
+                  className="m-4 cursor-pointer text-2xl"
+                  onClick={() => setSmallLinks(false)}
+                />
+              </div>
+              <div className="text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                >
+                  <Link
+                    onClick={() => setSmallLinks(false)}
+                    to="/men"
+                    className="block mx-3 pt-3 hover:cursor-pointer hover:underline text-lg font-semibold dark:text-white"
+                  >
+                    Men
+                  </Link>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                >
+                  <Link
+                    onClick={() => setSmallLinks(false)}
+                    to="/women"
+                    className="block mx-3 pt-3 hover:cursor-pointer hover:underline text-lg font-semibold dark:text-white"
+                  >
+                    Women
+                  </Link>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.5 }}
+                >
+                  <Link
+                    onClick={() => setSmallLinks(false)}
+                    to="/kid"
+                    className="block mx-3 pt-3 hover:cursor-pointer hover:underline text-lg font-semibold dark:text-white"
+                  >
+                    Kid
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
-      <div className="bg-red-400 z-50  bottom-20 fixed left-0 w-full">
+      <div className=" z-50    bottom-10 fixed right-1 w-full">
         {dark ? (
           <MdOutlineDarkMode
             onClick={toggleDarkMode}
-            className="right-0 h-9 sm:h-20 cursor-pointer  text-white absolute z-10"
+            className="right-0 h-10 w-10 cursor-pointer border-2 shadow-sm  rounded-full dark:bg-black border-white    sm:h-20  text-white absolute z-10"
             size={40}
           />
         ) : (
-          <MdDarkMode
+          <MdOutlineDarkMode
             onClick={toggleDarkMode}
-            className="right-0 h-9 sm:h-20 cursor-pointer  absolute z-10"
+            className="right-0 text-black h-10 w-10 cursor-pointer border-2 rounded-full dark:bg-white  bg-white shadow-md    sm:h-20   absolute z-10"
             size={40}
           />
         )}

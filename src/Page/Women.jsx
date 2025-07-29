@@ -95,8 +95,8 @@ const Women = () => {
 
   return (
     <>
-      <div className="lg:px-24 px-8 dark:bg-black overflow-hidden ">
-        <div className="py-3 dark:text-white">
+      <div className="lg:px-24 px-3 dark:bg-black overflow-hidden ">
+        <div className=" dark:text-white sm:my-0 my-2">
           <Link className=" hover:text-blue-700 font-bold " to="/">
             Home
           </Link>{" "}
@@ -106,9 +106,11 @@ const Women = () => {
           initial={{ y: "-10%", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 50 }}
-          className="py-16 bg-stone-500"
+          className="sm:py-16 py-7 bg-stone-500"
         >
-          <h1 className="text-4xl font-bold text-white ps-6">Women</h1>
+          <h1 className="sm:text-4xl text-2xl font-bold  text-white ps-6">
+            Women
+          </h1>
         </motion.div>
       </div>
 

@@ -41,7 +41,8 @@ const Home = () => {
           >
             <div className="absolute top-40 left-10 lg:w-[50%] md:w-[80%]">
               <h2 className="md:text-6xl text-4xl text-white font-bold  md:mx-16  ">
-                Discount20% For All Order Over $2000
+                Discount <span className="text-yellow-200">20%</span> For All
+                Order Over ₹2000
               </h2>
               <div>
                 <p className="md:mx-16 text-2xl text-white mx-3 mt-2">
@@ -49,100 +50,106 @@ const Home = () => {
                   <span className="bg-orange-100 text-black">DISCOUNT 20%</span>
                 </p>
                 <p className="md:mx-16 text-2xl text-white mx-3">
-                  Use coupon DISCOUNT20
+                  Use coupon DISCOUNT 20%
                 </p>
               </div>
             </div>
           </div>
           <div className="absolute top-[30%] mx-3 sm:w-[50%] md:hidden">
             <h2 className="lg:text-6xl text-5xl text-white font-bold  md:mx-16  ">
-              Discount 20% For All Order Over $2000
+              Discount <span className="text-yellow-200">20%</span> For All
+              Order Over ₹2000
             </h2>
             <div>
               <p className="md:mx-16 text-2xl text-white  mt-2">
                 Use coupon code{" "}
-                <span className="bg-orange-100 text-black">DISCOUNT20%</span>
+                <span className="bg-orange-100 text-black">DISCOUNT 20%</span>
               </p>
               <p className="md:mx-16 text-2xl text-white ">
-                Use coupon DISCOUNT20%
+                Use coupon DISCOUNT 20%
               </p>
             </div>
           </div>
         </div>
       </motion>
-      <motion initial="hidden" animate="visible" variants={Animation}>
-        <div className="grid pt-12  md:grid-cols-3 dark:bg-black  gap-3">
-          <div className="  ">
+      <motion.div initial="hidden" animate="visible" variants={Animation}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 md:p-8 dark:bg-black">
+          {/* MEN */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-md">
             <img
-              className=" md:mt-0 mt-6 rounded-lg  lg:h-[60vh] md:h-[50vh] md:w-[100%]  lg:w-[90%] w-[90%] mx-auto  object-cover"
+              className="w-full h-64 object-cover"
               src="https://i.pinimg.com/474x/fe/60/69/fe6069c4ceb711f0825c5f1f2d1ea876.jpg"
-              alt=""
+              alt="Men Shoes"
             />
-            <div className="ms-5">
-              <h1 className="text-2xl my-4 dark:text-white ">
+            <div className="p-5">
+              <h1 className="text-xl font-semibold mb-2 dark:text-white">
                 MEN SHOES COLLECTION
               </h1>
-              <p className="text-sm my-3 dark:text-white">
+              <p className="text-sm mb-4 dark:text-white">
                 Constructed from luxury nylons, leathers, and custom hardware,
                 featuring sport details such as hidden breathing vents,
                 waterproof + antimicrobial linings, and more.
               </p>
               <button
                 className="btn btn-success"
-                onClick={(e) => navigate("/Men")}
+                onClick={() => navigate("/Men")}
               >
                 Shop Men
               </button>
             </div>
           </div>
-          <div className=" ">
+
+          {/* WOMEN */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-md">
             <img
-              className=" md:mt-0 mt-6 rounded-lg  lg:h-[60vh] md:h-[50vh] md:w-[100%]  lg:w-[90%] w-[90%] mx-auto"
-              src="https://images.unsplash.com/photo-1535928069047-389a87df1b02?auto=format&fit=crop&q=60&w=600&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjUzfHx3ZW1lbiUyMHNob2VzfGVufDB8fDB8fHww"
-              alt=""
+              className="w-full h-64 object-cover"
+              src="https://images.unsplash.com/photo-1535928069047-389a87df1b02?auto=format&fit=crop&q=60&w=600&ixlib=rb-4.0.3"
+              alt="Women Shoes"
             />
-            <div className="ms-5">
-              <h1 className="text-2xl dark:text-white my-4 ">
+            <div className="p-5">
+              <h1 className="text-xl font-semibold mb-2 dark:text-white">
                 WOMEN SHOES COLLECTION
               </h1>
-              <p className="text-sm dark:text-white my-3">
+              <p className="text-sm mb-4 dark:text-white">
                 Constructed from luxury nylons, leathers, and custom hardware,
                 featuring sport details such as hidden breathing vents,
                 waterproof + antimicrobial linings, and more.
               </p>
               <button
                 className="btn btn-success"
-                onClick={(e) => navigate("/Women")}
+                onClick={() => navigate("/Women")}
               >
                 Shop Women
               </button>
             </div>
           </div>
-          <div className=" ">
+
+          {/* KID */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-md">
             <img
-              className="  md:mt-0 mt-6 rounded-lg  lg:h-[60vh] md:h-[50vh] md:w-[100%]  lg:w-[90%] w-[90%] mx-auto   "
-              src="https://images.unsplash.com/photo-1574946943172-4800feadfab7?auto=format&fit=crop&q=80&w=1964&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt=""
+              className="w-full h-64 object-cover"
+              src="https://images.unsplash.com/photo-1574946943172-4800feadfab7?auto=format&fit=crop&q=80&w=1964&ixlib=rb-4.0.3"
+              alt="Kid Shoes"
             />
-            <div className="ms-5">
-              <h1 className="text-2xl dark:text-white my-4 ">
+            <div className="p-5">
+              <h1 className="text-xl font-semibold mb-2 dark:text-white">
                 KID SHOES COLLECTION
               </h1>
-              <p className="text-sm dark:text-white my-3">
+              <p className="text-sm mb-4 dark:text-white">
                 Constructed from luxury nylons, leathers, and custom hardware,
                 featuring sport details such as hidden breathing vents,
                 waterproof + antimicrobial linings, and more.
               </p>
               <button
                 className="btn btn-success"
-                onClick={(e) => navigate("/Kid")}
+                onClick={() => navigate("/Kid")}
               >
                 Shop Kid
               </button>
             </div>
           </div>
         </div>
-      </motion>
+      </motion.div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useRegisterMutation } from "../redux/authApi";
+import Loader from "./Loader";
 
 const Register = () => {
   const [registr, { isSuccess, error, isError, isLoading }] =
@@ -32,6 +33,7 @@ const Register = () => {
 
   return (
     <>
+      {isLoading && <Loader />}
       {
         <section section class="bg-gray-50 pt-8 dark:bg-gray-900">
           <div class="flex flex-col items-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -41,9 +43,9 @@ const Register = () => {
                   <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Create account
                   </h1>
-                  <h1>
-                    <span className="font-bold mx-2 dark:text-white">
-                      Loger :
+                  <div className="flex flex-col justify-between ">
+                    <span className="font-bold mx-2 my-2 inline dark:text-white">
+                      Loger:
                     </span>
                     <select
                       onChange={(e) =>
@@ -59,7 +61,7 @@ const Register = () => {
                         Admin
                       </option>
                     </select>
-                  </h1>
+                  </div>
                 </div>
                 <div class="space-y-4 md:space-y-6">
                   <div>
@@ -111,6 +113,9 @@ const Register = () => {
                       class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required=""
                     />
+                    <p className="  alert-warning dark:text-white my-1 text-xs sm:text-sm">
+                      🔐 Use 8+ characters, 1 capital, and 1 special symbol.
+                    </p>
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-start">
@@ -136,8 +141,8 @@ const Register = () => {
                   <div class="flex items-start"></div>
                   <button
                     onClick={(e) => registr(Register)}
-                    className="btn btn-primary w-full btn-md"
-                  >{`${isLoading ? "Loding....!" : "Register"}`}</button>
+                    className="btn btn-info dark:text-white w-full btn-md"
+                  >{`${isLoading ? <Loader /> : "Register"}`}</button>
                   <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                     Already have an account?{" "}
                     <a

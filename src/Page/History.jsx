@@ -23,13 +23,13 @@ const Histroy = () => {
 
   return (
     <>
-      <div class="alert alert-success my-3 flex justify-center">
+      <div class="alert bg-slate-400 border-none my-3 flex justify-center">
         <div className="text-3xl font-bold">Your Orders</div>
       </div>
       {data && data != 0 ? (
-        <div className="h-auto">
-          <div className="md:flex  dark:bg-black">
-            <div class=" h-[80vh] relative  dark:bg-gray-500 w-full   md:w-full md:ms-16 shadow-md sm:rounded-lg">
+        <div className=" ">
+          <div className="md:flex   ">
+            <div class="   relative  dark:bg-gray-500 w-full   md:w-full md:ms-16 shadow-md sm:rounded-lg">
               <table className="w-full h-80 dark:text-white  text-sm text-left rtl:text-right text-gray-500 ">
                 <thead className="text-xs text -gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
@@ -56,12 +56,12 @@ const Histroy = () => {
                       >
                         <th
                           scope="row"
-                          className="px-6 py-2 text-gray-900 font-normal whitespace-nowrap "
+                          className=" px-1 ms:px-6 py-2 text-gray-900 font-normal whitespace-nowrap "
                         >
                           <div className="flex  dark:text-white gap-3">
                             <img
                               src={`  ${item.img}`}
-                              className="sm:w-44  sm:h-44 w-32 h-32 dark:bg-slate-700 bg-slate-100"
+                              className="sm:w-44  sm:h-44 w-28 rounded-md h-28  dark:bg-slate-700 bg-slate-100"
                               alt=""
                             />
                             <div className="flex w-7/12 justify-between ">
@@ -73,15 +73,15 @@ const Histroy = () => {
                                 <p className="my-1">Size : {item.size}</p>
                                 <p className="my-1">Cat : {item.category}</p>
                               </div>
-                              <div className="block">
-                                <div className="px-6 pt-7 md:hidden">
+                              <div className="block w-28 px-1">
+                                <div className="sm:px-6 pt-7 md:hidden">
                                   Price ₹ {item.price}
                                 </div>
                                 {/* Show QUANTITY and Total columns only on medium and larger screens */}
-                                <div className="md:hidden mt-1 px-6">
+                                <div className="md:hidden mt-1 sm:px-6">
                                   Qut: {item.qut}
                                 </div>
-                                <div className="md:hidden  mt-1 px-6">
+                                <div className="md:hidden  mt-1 sm:px-6">
                                   Total : ₹ {(item.price * item.qut).toFixed(2)}
                                 </div>
                                 <div className="md:hidden my-4">
@@ -89,7 +89,7 @@ const Histroy = () => {
                                     onClick={(e) =>
                                       window.my_modal_5.showModal()
                                     }
-                                    className="btn btn-secondary btn-sm relative sm:-right-[19vw]  my-2"
+                                    className="btn btn-secondary btn-sm relative sm:-right-[19vw]  "
                                   >
                                     Show
                                   </button>

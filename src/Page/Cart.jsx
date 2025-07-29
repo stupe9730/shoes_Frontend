@@ -87,22 +87,19 @@ const Cart = () => {
   return (
     data && (
       <>
-        <div className="md:px-20 px-10 dark:bg-black dark:text-white">
+        <div className="md:px-20  px-6 dark:bg-black dark:text-white">
           <div className="py-4">
             <Link className="text-blue-700 dark:text-white ">Home / </Link>
-            <Link
-              to={`${data.category}`}
-              className="text-blue-700 dark:text-white "
-            >
-              {data.category} /{" "}
+            <Link to={`/Men`} className="text-blue-700 dark:text-white ">
+              Men /
             </Link>
             <span> {data.name}</span>
           </div>
-          <div className="grid grid-cols-12 gap-6 mt-10 pb-28">
-            <div className="md:col-span-6 col-span-12">
+          <div className="grid  grid-cols-12 gap-6 mt-2 sm:mt-5 pb-5">
+            <div className="md:col-span-6 p-0 col-span-12">
               {data && (
                 <motion.img
-                  className="w-full dark:bg-slate-700 bg-slate-100"
+                  className=" rounded-2xl sm:h-[90%] sm:w-[90%] h-[100%]  w-[100%] dark:bg-slate-700 bg-slate-100"
                   src={`${data.img}`}
                   alt={data.name}
                   initial={{ scale: 1, opacity: 0 }} // Initial state
@@ -124,79 +121,84 @@ const Cart = () => {
                 ease: "easeInOut", // Smooth easing effect
               }}
             >
-              <h1 className="text-4xl my-5 font-bold">{data.name}</h1>
-              <p className="text-2xl my-3 font-bold">₹{data.price}</p>
+              <h1 className="text-4xl my-2  font-bold">{data.name}</h1>
               <div className="flex gap-10 items-center">
                 <span className="text-2xl font-bold">
                   Color : <span className="underline">{data.color}</span>
                 </span>
                 <span className="text-2xl font-bold">
-                  Size : <span className="underline">{data.size}</span>
+                  <p className="text-2xl  my-3 font-bold">
+                    Price : <span className="underline">₹{data.price}</span>
+                  </p>
                 </span>
               </div>
-
-              <form className="max-w-xs my-5 mx-0">
-                <label
-                  htmlFor="bedrooms-input"
-                  className="block mb-2  font-medium text-gray-900 dark:text-white text-2xl"
-                >
-                  Quantity:
-                </label>
-                <div className="relative flex items-center max-w-[11rem]">
-                  <button
-                    type="button"
-                    onClick={handleDecrement}
-                    className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+              <div className="flex  items-center">
+                <form className="max-w-xs my-5 mx-0">
+                  <label
+                    htmlFor="bedrooms-input"
+                    className="block mb-2  font-medium text-gray-900 dark:text-white text-2xl"
                   >
-                    <svg
-                      className="w-3 h-3 text-gray-900 dark:text-white"
-                      fill="none"
-                      viewBox="0 0 18 2"
+                    Quantity:
+                  </label>
+                  <div className="relative flex items-center max-w-[11rem]">
+                    <button
+                      type="button"
+                      onClick={handleDecrement}
+                      className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
                     >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M1 1h16"
-                      />
-                    </svg>
-                  </button>
+                      <svg
+                        className="w-3 h-3 text-gray-900 dark:text-white"
+                        fill="none"
+                        viewBox="0 0 18 2"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M1 1h16"
+                        />
+                      </svg>
+                    </button>
 
-                  <input
-                    type="number"
-                    min="1"
-                    max="2"
-                    value={handlequt}
-                    onChange={handleChange}
-                    className="bg-gray-50 border-x-0 border-gray-300 h-11 font-medium text-center text-gray-900 text-2xl focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  />
+                    <input
+                      type="number"
+                      min="1"
+                      max="2"
+                      value={handlequt}
+                      onChange={handleChange}
+                      className="bg-gray-50 border-x-0 border-gray-300 h-11 font-medium text-center text-gray-900 text-2xl focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
 
-                  <button
-                    type="button"
-                    onClick={handleIncrement}
-                    className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
-                  >
-                    <svg
-                      className="w-3 h-3 text-gray-900 dark:text-white"
-                      fill="none"
-                      viewBox="0 0 18 18"
+                    <button
+                      type="button"
+                      onClick={handleIncrement}
+                      className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
                     >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M9 1v16M1 9h16"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                  Min qut is 1 and Max qut is 10
-                </p>
-              </form>
-
+                      <svg
+                        className="w-3 h-3 text-gray-900 dark:text-white"
+                        fill="none"
+                        viewBox="0 0 18 18"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 1v16M1 9h16"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                    Min qut is 1 and Max qut is 10
+                  </p>
+                </form>
+                <span className="text-2xl font-bold mx-10 ">
+                  {" "}
+                  Size : <span className="underline ">{data.size}</span>
+                </span>
+              </div>
               <div className="flex"></div>
               {auth && !authError ? (
                 <div>
@@ -208,7 +210,7 @@ const Cart = () => {
                         qut: handlequt && handlequt,
                       })
                     }
-                    className="btn btn-warning me-4 my-4 text-white"
+                    className="btn btn-secondary me-4 my-4 w-full text-white"
                   >
                     ADD TO CART
                   </button>
@@ -216,7 +218,7 @@ const Cart = () => {
               ) : (
                 <button
                   onClick={() => navigate("/login")}
-                  className="btn btn-primary mb-4 hover:bg-indigo-700 w-full mt-2"
+                  className="btn btn-success mb-4 hover:bg-emerald-500 text-white text-xl font-mono w-full mt-2"
                 >
                   Please login
                 </button>

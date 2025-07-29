@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   useLoginMutation,
@@ -9,6 +9,7 @@ import {
 } from "../redux/authApi";
 import { useSelector } from "react-redux";
 import { BsX } from "react-icons/bs";
+import Loader from "./Loader";
 
 const Login = () => {
   const [
@@ -18,7 +19,7 @@ const Login = () => {
   console.log(verified);
   console.log(verifiySuccess);
   console.log(verifyError);
-  const [login, { isSuccess, error, isError }] = useLoginMutation();
+  const [login, { isSuccess, error, isError, isLoading }] = useLoginMutation();
   const [pass, setPass] = useState();
   const navigate = useNavigate();
   const { auth } = useSelector((state) => state.user);
@@ -184,6 +185,7 @@ const Login = () => {
 
   return (
     <>
+      {isLoading && <Loader />}
       <section section class="bg-gray-50 dark:bg-gray-900 pt-8">
         <div class="flex flex-col items-center    px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -255,7 +257,7 @@ const Login = () => {
                         id="remember"
                         aria-describedby="remember"
                         type="checkbox"
-                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                        class="w-4 h-4 border  border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                       />
                     </div>
                     <div class="ml-3 text-sm  ">
@@ -278,10 +280,9 @@ const Login = () => {
                   <button
                     type="button"
                     onClick={(e) => login(loginUser)}
-                    className="btn btn-primary w-full btn-md"
+                    className="btn btn-info dark:text-white w-full btn-md"
                   >
-                    {" "}
-                    {"Login"}
+                    Login
                   </button>
                 }
                 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
@@ -304,8 +305,10 @@ const Login = () => {
         <dialog id="my_modal_3" className="modal">
           <form method="dialog" className="modal-box dark:bg-gray-800">
             <button
-              onClick={(e) => window.my_modal_3.close()}
-              type="submit"
+              onClick={(e) => {
+                window.my_modal_3.close();
+              }}
+              type="button"
               className="btn btn-sm btn-circle dark:text-white text-4xl btn-ghost absolute right-2 top-2"
             >
               <BsX />
@@ -323,12 +326,14 @@ const Login = () => {
                     </h1>
                     <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                       Remember your password?
-                      <a
+                      <Link
+                        onClick={(e) => {
+                          window.my_modal_3.close();
+                        }}
                         className="text-blue-600 decoration-2 hover:underline font-medium"
-                        href="/login"
                       >
                         Login here
-                      </a>
+                      </Link>
                     </p>
                   </div>
 
@@ -379,14 +384,14 @@ const Login = () => {
           <dialog id="my_modal_4" className="modal">
             <form
               method="dialog"
-              className="modal-box dark:bg-gray-800 overflow-hidden"
+              className="modal-box  dark:bg-gray-800 overflow-hidden"
             >
-              <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12">
-                <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
+              <div className="relative dark:bg-black flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12">
+                <div className="relative dark:bg-black bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
                   <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
                     <div className="flex flex-col items-center justify-center text-center space-y-2">
                       <div className="font-semibold text-3xl">
-                        <p>Email Verification</p>
+                        <p className="dark:text-white">Email Verification</p>
                       </div>
                       <div className="flex flex-row text-sm font-medium text-gray-400">
                         <p>We have sent a code to your email {storedEmail}</p>
@@ -440,7 +445,6 @@ const Login = () => {
           </dialog>
         )}
       </div>
-      );
       {/* <button className="btn" onClick={()=>window.my_modal_7.showModal()}>open modal</button> */}
       <dialog id="my_modal_7" className="modal">
         <form method="dialog" className="modal-box" onSubmit={handleSubmit}>
@@ -460,7 +464,7 @@ const Login = () => {
               <input
                 type={showPass ? "text" : "password"}
                 placeholder="Type Password"
-                className="input input-bordered w-full my-3 pr-12"
+                className="input  input-bordered w-full my-3 pr-12"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
