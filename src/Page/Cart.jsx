@@ -9,13 +9,14 @@ import {
 } from "../redux/userApi";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
 // import { useSelector } from 'react-redux';
 
 const Cart = () => {
   const { _id } = useParams();
   const [handleColor, setHandleColor] = useState();
   const [auther, { error: authError }] = useLazyGetCartQuery();
-  const [getCartPro, { data, isSuccess, isError, error }] =
+  const [getCartPro, { data, isSuccess, isError, error, isLoading }] =
     useLazyGetUserCartQuery();
   const [
     addToCart,
@@ -87,7 +88,8 @@ const Cart = () => {
   return (
     data && (
       <>
-        <div className="md:px-20  px-6 dark:bg-black dark:text-white">
+        {(isLoading || isCartLoading) && <Loader />}
+        <div className="md:px-20 px-3  sm:px-6 dark:bg-black dark:text-white">
           <div className="py-4">
             <Link className="text-blue-700 dark:text-white ">Home / </Link>
             <Link to={`/Men`} className="text-blue-700 dark:text-white ">
@@ -95,7 +97,7 @@ const Cart = () => {
             </Link>
             <span> {data.name}</span>
           </div>
-          <div className="grid  grid-cols-12 gap-6 mt-2 sm:mt-5 pb-5">
+          <div className="grid  grid-cols-12 gap-6   mt-2 sm:mt-5 pb-5">
             <div className="md:col-span-6 p-0 col-span-12">
               {data && (
                 <motion.img
@@ -132,7 +134,7 @@ const Cart = () => {
                   </p>
                 </span>
               </div>
-              <div className="flex  items-center">
+              <div className="flex  ">
                 <form className="max-w-xs my-5 mx-0">
                   <label
                     htmlFor="bedrooms-input"
@@ -194,8 +196,7 @@ const Cart = () => {
                     Min qut is 1 and Max qut is 10
                   </p>
                 </form>
-                <span className="text-2xl font-bold mx-10 ">
-                  {" "}
+                <span className="text-2xl font-bold mt-4 ">
                   Size : <span className="underline ">{data.size}</span>
                 </span>
               </div>

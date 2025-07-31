@@ -17,7 +17,7 @@ const Loader = () => {
           }}
         >
           {/* <PiWebhooksLogo className="text-8xl text-blue-600 drop-shadow-xl" /> */}
-          <img className="h-36 w-36" src="./public/logo.svg" alt="SVG logo" />
+          <img className="h-36 w-36" src="/logo.svg" alt="SVG logo" />
         </motion.div>
 
         <div className="flex space-x-2 justify-center items-center">

@@ -16,6 +16,24 @@ const Men = () => {
     filter: false,
   });
   console.log(selectedData);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setLogo(false); // Small screen (like mobile)
+      } else {
+        setLogo(true); // Medium or larger screen
+      }
+    };
+
+    // Call once on mount
+    handleResize();
+
+    // Also update on screen resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6); // Assuming 6 products per page
@@ -124,148 +142,159 @@ const Men = () => {
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: 100, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 50, damping: 20 }}
-          className="your-css-classes dark:bg-black grid grid-cols-12  lg:px-10 md:px-10  w-full sm:ps-4 md:ps-12 pt-7 "
+          transition={{ type: "spring", stiffness: 50, damping: 30 }}
+          className="your-css-classes sm:gap-8   dark:bg-black grid grid-cols-12  lg:px-10 md:px-10  w-full sm:ps-4 md:ps-12 pt-7 "
         >
-          <div
-            className={`md:block ${
-              logo
-                ? "block z-20 gap-8 dark:bg-black md:col-span-3   ms-3 sm:col-span-12 col-span-12 lg:w-72  md:w-52 md:mx-auto sm:w-11/12 sticky top-0"
-                : "hidden md:col-span-3 gap-0   lg:w-72  md:w-52"
-            }`}
-          >
-            {/* Filters */}
-            <div className="flex  justify-between  ">
-              <p className="font-bold  dark:text-white my-3 underline">
-                SHOP BY
-              </p>
-              {/* <p>Clear Filter</p> */}
-              <button
-                onClick={(e) => {
-                  setSelectedData({
-                    ...selectedData,
-                    filter: true,
-                    price: 802,
-                    size: "",
-                    color: "",
-                  }),
-                    getProducts({
-                      selecter: "Man",
-                      page: currentPage,
-                      limit: 6,
-                    });
-                }}
-                className="btn me-2 btn-active btn-sm btn-error text-tran capitalize dark:text-white"
+          <AnimatePresence mode="wait">
+            {logo && (
+              <motion.div
+                key="sidebar"
+                initial={{ x: "-100%", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: "-100%", opacity: 0, type: "spring" }}
+                transition={{ type: "spring", duration: 1 }}
+                className="z-20 gap-8  dark:bg-black lg:col-span-4 md:col-span-3  ms-3 sm:col-span-12  col-span-11 lg:w-72 md:w-52 md:mx-auto sm:w-11/12 sticky top-0"
               >
-                Clear Filter
-              </button>
-            </div>
-            <p className="dark:text-white">PRICE</p>
-            <div className={`${logo ? "w-full " : "md:w-full"}`}>
-              <input
-                type="range"
-                id="priceSlider"
-                className="me-2  dark:text-white range range-xs range-accent bg-slate-300 w-full"
-                min={169}
-                max={802}
-                // step={1}
-                value={selectedData.filter ? 802 : selectedData.price}
-                onChange={handlePriceChange}
-                name="price"
-              />
-              <div className="flex justify-between">
-                <p className="font-bold dark:text-white">₹169.00</p>
-                <p className="font-bold dark:text-white">
-                  ₹{selectedData.price}
-                </p>
-              </div>
-            </div>
-            {/* Color Filter */}
-            <div className="flex justify-between items-center my-3 ">
-              <p className=" dark:text-white font-bold font-serif text-2xl">
-                COLOR'S
-              </p>
-              {logo && (
-                <button
-                  onClick={(e) => setLogo(false)}
-                  className="btn btn-success me-2 dark:text-white btn-sm"
+                {/* Filters */}
+                <div
+                  className={`md:block ${
+                    logo
+                      ? "block z-20 gap-8 dark:bg-black md:col-span-3  sm:col-span-12 col-span-12 lg:w-72  md:mx-auto sm:w-11/12 bg-white sticky top-0"
+                      : "hidden md:col-span-3 gap-0 lg:w-72  md:w-52"
+                  }`}
                 >
-                  Save Changes
-                </button>
-              )}
-            </div>
-            <hr />
-            <div>
-              {[
-                "White",
-                "Black",
-                "Grey",
-                "Blue",
-                "Brown",
-                "Green",
-                "Pink",
-                "Red",
-              ].map((color) => (
-                <div className="items-center flex" key={color}>
-                  <input
-                    // value={color}
-                    onChange={handleFilterChange}
-                    value={selectedData.filter ? color : color}
-                    name="color"
-                    type="radio"
-                    id="color"
-                    className="me-2 checkbox-secondary w-6 h-6 my-2 border-2 cursor-pointer"
-                    checked={
-                      !selectedData.filter && selectedData.color === color
-                    }
-                    //   disabled={selectedData.filter}
-                  />
-                  <label
-                    htmlFor={color}
-                    className="cursor-pointer dark:text-white"
-                  >
-                    {color}
-                  </label>
+                  <div className="flex justify-between">
+                    <p className="font-bold dark:text-white my-3 underline">
+                      SHOP BY
+                    </p>
+                    <button
+                      onClick={() => {
+                        setSelectedData({
+                          ...selectedData,
+                          filter: true,
+                          price: 802,
+                          size: "",
+                          color: "",
+                        });
+                        getProducts({
+                          selecter: "Man",
+                          page: currentPage,
+                          limit: 6,
+                        });
+                      }}
+                      className="btn me-2 btn-active btn-sm btn-error text-tran capitalize dark:text-white"
+                    >
+                      Clear Filter
+                    </button>
+                  </div>
                 </div>
-              ))}
-            </div>
 
-            {/* Size Filter */}
-            <p className="mt-5 dark:text-white font-bold font-serif text-2xl">
-              SIZE
-            </p>
-            <hr />
-            <div>
-              {["L", "XL", "M", "S", "X"].map((size) => (
-                <div className="items-center flex" key={size}>
+                <p className="dark:text-white">PRICE</p>
+                <div className="w-full">
                   <input
-                    value={selectedData.filter ? size : size}
-                    onChange={handleFilterChange}
-                    name="size"
-                    type="radio"
-                    id="size"
-                    className="me-2 checkbox-secondary w-6 h-6 my-2 border-2 cursor-pointer"
-                    checked={!selectedData.filter && selectedData.size === size}
+                    type="range"
+                    id="priceSlider"
+                    className="me-2 dark:text-white range range-xs range-accent bg-slate-300 w-full"
+                    min={169}
+                    max={802}
+                    value={selectedData.filter ? 802 : selectedData.price}
+                    onChange={handlePriceChange}
+                    name="price"
                   />
-                  <label
-                    htmlFor={size}
-                    className="cursor-pointer dark:text-white"
-                  >
-                    {size}
-                  </label>
+                  <div className="flex justify-between">
+                    <p className="font-bold dark:text-white">₹169.00</p>
+                    <p className="font-bold dark:text-white">
+                      ₹{selectedData.price}
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          <div className="md:col-span-9  col-span-12">
+                {/* Color Filter */}
+                <div className="flex justify-between items-center my-3">
+                  <p className="dark:text-white font-bold font-serif text-2xl">
+                    COLOR'S
+                  </p>
+                  <button
+                    onClick={() => setLogo(false)}
+                    className="btn btn-success me-2 dark:text-white btn-sm"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+                <hr />
+                <div>
+                  {[
+                    "White",
+                    "Black",
+                    "Grey",
+                    "Blue",
+                    "Brown",
+                    "Green",
+                    "Pink",
+                    "Red",
+                  ].map((color) => (
+                    <div className="items-center flex" key={color}>
+                      <input
+                        onChange={handleFilterChange}
+                        value={selectedData.filter ? color : color}
+                        name="color"
+                        type="radio"
+                        id="color"
+                        className="me-2 checkbox-secondary w-6 h-6 my-2 border-2 cursor-pointer"
+                        checked={
+                          !selectedData.filter && selectedData.color === color
+                        }
+                      />
+                      <label
+                        htmlFor={color}
+                        className="cursor-pointer dark:text-white"
+                      >
+                        {color}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Size Filter */}
+                <p className="mt-5 dark:text-white font-bold font-serif text-2xl">
+                  SIZE
+                </p>
+                <hr />
+                <div>
+                  {["L", "XL", "M", "S", "X"].map((size) => (
+                    <div className="items-center flex" key={size}>
+                      <input
+                        value={selectedData.filter ? size : size}
+                        onChange={handleFilterChange}
+                        name="size"
+                        type="radio"
+                        id="size"
+                        className="me-2 checkbox-secondary w-6 h-6 my-2 border-2 cursor-pointer"
+                        checked={
+                          !selectedData.filter && selectedData.size === size
+                        }
+                      />
+                      <label
+                        htmlFor={size}
+                        className="cursor-pointer dark:text-white"
+                      >
+                        {size}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="md:col-span-9 lg:col-span-8   col-span-12">
             {/* Is Loading Code */}
             {isLoading ? (
               // <Loader />
               <div>Temp Loading</div>
             ) : (
-              <div className="grid grid-cols-12 gap-2   sm:gap-5 lg:mx-0 md:mx-8 mx-1 ">
-                {data && !logo && data.result.length > 0 ? (
+              <div className="grid grid-cols-12 gap-2 h-full sm:h-auto sm:gap-5 lg:mx-0 md:mx-8  mx-1 ">
+                {data && data.result.length > 0 ? (
                   <AnimatePresence>
                     {data.result.map((item) => (
                       <motion.div
@@ -307,10 +336,12 @@ const Men = () => {
                             />
                           </motion.div>
 
-                          <h3 className="font-bold hover:underline">
+                          <h3 className="font-bold  ms-2 sm:ms-0 hover:underline">
                             {item.name}
                           </h3>
-                          <h3 className="font-bold">₹{item.price}</h3>
+                          <h3 className="font-bold ms-2 sm:ms-0">
+                            ₹{item.price}
+                          </h3>
                         </Link>
                       </motion.div>
                     ))}
@@ -324,7 +355,7 @@ const Men = () => {
             )}
 
             {/* Pagination */}
-            {data && !logo && data.totalPages > 1 && (
+            {data && data.totalPages > 1 && (
               <ReactPaginate
                 previousLabel={<BsChevronLeft />}
                 nextLabel={<BsChevronRight />}
@@ -354,12 +385,12 @@ const Men = () => {
       </AnimatePresence>
       {/* Small screen filter button */}
       <div>
-        <div className="fixed bottom-12 z-50 right-1">
+        <div className="fixed bottom-16 sm:bottom-24 sm:right-2 z-50 right-1">
           <div
             onClick={() => setLogo(!logo)}
             className="px-2 dark:bg-black dark:text-white py-2 cursor-pointer block md:hidden shadow-lg border-2 rounded-full text-2xl bg-slate-50"
           >
-            <BsSliders className="text-lg" />
+            <BsSliders className="text-lg sm:text-2xl" />
           </div>
         </div>
       </div>

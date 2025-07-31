@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div>
       <motion initial="hidden" animate="visible" variants={video3d}>
-        <div className=" h-90 dark:bg-black  items-center">
+        <div className=" h-90 dark:bg-black bg-black  items-center">
           <div>
             <video
               src={video3d}
@@ -37,7 +37,7 @@ const Home = () => {
               backgroundImage:
                 "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9Pvj6CutkvopcFcB1hyZc9RytVk7DufuUA&usqp=CAU')",
             }}
-            className="bg-yellow-50 w-screen  items-center justify-self-center  hidden md:block "
+            className=" w-screen  items-center justify-self-center  hidden md:block "
           >
             <div className="absolute top-40 left-10 lg:w-[50%] md:w-[80%]">
               <h2 className="md:text-6xl text-4xl text-white font-bold  md:mx-16  ">
@@ -61,9 +61,11 @@ const Home = () => {
               Order Over ₹2000
             </h2>
             <div>
-              <p className="md:mx-16 text-2xl text-white  mt-2">
-                Use coupon code{" "}
-                <span className="bg-orange-100 text-black">DISCOUNT 20%</span>
+              <p className="md:mx-16 text-2xl block text-white  mt-2">
+                <span className="block my-2 text-4xl"> Use coupon code</span>
+                <span className="bg-orange-100  text-2xl text-black">
+                  DISCOUNT 20%
+                </span>
               </p>
               <p className="md:mx-16 text-2xl text-white ">
                 Use coupon DISCOUNT 20%

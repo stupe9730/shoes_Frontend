@@ -6,16 +6,20 @@ import {
   BsXLg,
   BsX,
 } from "react-icons/bs";
+
+import { HiOutlineClock } from "react-icons/hi";
+import { FiLogOut } from "react-icons/fi";
 import { PiWebhooksLogo } from "react-icons/pi";
 import { Link, json, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "./logo.png";
-import { MdDarkMode } from "react-icons/md";
+import { MdClose, MdDarkMode } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../redux/adminSlice";
 import { useLazyGetCartQuery } from "../redux/userApi";
+import { useLoginMutation } from "../redux/authApi";
 
 const Navbar = ({ toggleDarkMode, dark }) => {
   const dropdownRef = useRef(null);
@@ -26,6 +30,7 @@ const Navbar = ({ toggleDarkMode, dark }) => {
   };
   const [smallLinks, setSmallLinks] = useState(false);
   console.log(data);
+  const [login, { isError, isLoading }] = useLoginMutation();
 
   const navigate = useNavigate();
   // const username = localStorage.getItem("auth")
@@ -58,7 +63,7 @@ const Navbar = ({ toggleDarkMode, dark }) => {
   }, [auth]);
   useEffect(() => {
     if (error && error.data) {
-      //   dispatch(logOut());
+      dispatch(logOut());
     }
   }, [error]);
 
@@ -92,7 +97,7 @@ const Navbar = ({ toggleDarkMode, dark }) => {
         // style={styles.navbar}
       >
         <div
-          className={`navbar px-1 sm:px-9 py-0 dark:text-white dark:bg-gray-800 bg-base-100  `}
+          className={`navbar border-b-2 border-gray-500 dark:border-gray-300 px-1 sm:px-9 py-0 dark:text-white dark:bg-gray-800 bg-base-100  `}
         >
           <div className="flex-1">
             <Link to="/">
@@ -151,17 +156,26 @@ const Navbar = ({ toggleDarkMode, dark }) => {
             >
               <label
                 tabIndex={0}
-                onClick={toggleSearch}
-                className="btn btn-ghost  btn-circle dark:"
+                onClick={!searchs ? toggleSearch : undefined}
+                className="btn btn-ghost disabled ms-1 btn-circle dark:"
               >
-                <div className="indicator hidden sm:block">
-                  <BsSearch className="sm:text-2xl text-xl " />
+                <div className="indicator   hidden sm:block">
+                  {!searchs ? (
+                    <BsSearch className="sm:text-2xl text-xl " />
+                  ) : (
+                    <>
+                      <MdClose
+                        className="text-xl"
+                        onClick={searchs ? toggleSearch : undefined}
+                      />
+                    </>
+                  )}
                 </div>
               </label>
               {auth && (
                 <label
                   tabIndex={0}
-                  className=" btn btn-ghost sm:relative top-0 absolute left-1 sm:top-1 sm:me-2 btn-circle"
+                  className=" btn z-50 btn-ghost sm:relative top-0 absolute left-1 sm:top-1 sm:me-2 btn-circle"
                 >
                   <Link
                     to="shoping"
@@ -195,7 +209,7 @@ const Navbar = ({ toggleDarkMode, dark }) => {
                   <div className="flex justify-center">
                     <Link
                       tabIndex={0}
-                      className="h-7 w-7 sm:w-10 sm:h-10 flex justify-center  items-center  bg-orange-600 btn-circle   hover:bg-orange-500 "
+                      className="h-10 w-10 sm:w-10 sm:h-10 flex justify-center  items-center  bg-orange-600 btn-circle   hover:bg-orange-500 "
                       onClick={handleDropdownToggle}
                     >
                       <h1 className="font-bold items-center justify-center py-1 capitalize text-xl text-white">
@@ -204,41 +218,54 @@ const Navbar = ({ toggleDarkMode, dark }) => {
                     </Link>
                   </div>
 
-                  {isDropdownOpen && (
-                    <div
-                      ref={dropdownRef}
-                      className="absolute me:w-[15vw] dark:bg-gray-700 border-none shadow-xl dark:text-white right-0 mt-2 bg-white border rounded-md "
-                    >
-                      {/* <div className=' m-2 text-end'>X</div> */}
-
-                      {/* Add additional dropdown menu items here */}
-                      <div className="flex justify-between ">
-                        <button
-                          className="block px-4 py-2 dark:text-white text-gray-800"
-                          onClick={() => {
-                            handleLogout();
-                            setDropdownOpen(false);
-                          }}
-                        >
-                          LogOut
-                        </button>
-                        <button
-                          onClick={(e) => setDropdownOpen(false)}
-                          className="m-3  text-3xl "
-                        >
-                          <BsX />
-                        </button>
-                      </div>
-                      <button
-                        className="block px-4 py-2 dark:text-white text-gray-800"
-                        onClick={(e) => {
-                          setDropdownOpen(false), navigate("/histroy");
-                        }}
+                  <AnimatePresence>
+                    {isDropdownOpen && (
+                      <motion.div
+                        ref={dropdownRef}
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="absolute w-[200px] md:w-[15vw] right-0 mt-2 rounded-xl shadow-2xl border dark:border-slate-700 dark:bg-slate-800 bg-white z-50"
                       >
-                        History
-                      </button>
-                    </div>
-                  )}
+                        <div className="flex justify-between items-center border-b dark:border-slate-600 px-4 py-2">
+                          <span className="text-lg font-semibold text-gray-700 dark:text-white">
+                            Menu
+                          </span>
+                          <button
+                            onClick={() => setDropdownOpen(false)}
+                            className="text-gray-500 hover:text-red-500 text-3xl"
+                          >
+                            <BsX />
+                          </button>
+                        </div>
+
+                        <div className="px-4 py-2 space-y-2">
+                          <button
+                            className="w-full flex items-center gap-2 text-left px-2 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 dark:text-white text-gray-800 transition"
+                            onClick={() => {
+                              setDropdownOpen(false);
+                              navigate("/histroy");
+                            }}
+                          >
+                            <HiOutlineClock className="text-lg text-green-500" />
+                            History
+                          </button>
+
+                          <button
+                            className="w-full flex items-center gap-2 text-left px-2 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 dark:text-white text-gray-800 transition"
+                            onClick={() => {
+                              handleLogout();
+                              setDropdownOpen(false);
+                            }}
+                          >
+                            <FiLogOut className="text-lg text-red-500" />
+                            Logout
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ) : (
                 <Link
@@ -266,7 +293,7 @@ const Navbar = ({ toggleDarkMode, dark }) => {
                 transition: { duration: 0.5, ease: "easeInOut" },
               }}
               transition={{ duration: 0.3 }}
-              className="sm:hidden  w-full block bg-stone-300 text-black dark:bg-slate-600 dark:text-white h-36 relative"
+              className="sm:hidden  w-full block bg-slate-200 text-black dark:bg-slate-600 dark:text-white h-36 relative"
             >
               <div className="absolute right-0">
                 <BsXLg
@@ -321,17 +348,17 @@ const Navbar = ({ toggleDarkMode, dark }) => {
           )}
         </AnimatePresence>
       </motion.nav>
-      <div className=" z-50    bottom-10 fixed right-1 w-full">
+      <div className="z-50 sm:bottom-20 bottom-14 fixed right-1 w-full">
         {dark ? (
           <MdOutlineDarkMode
             onClick={toggleDarkMode}
-            className="right-0 h-10 w-10 cursor-pointer border-2 shadow-sm  rounded-full dark:bg-black border-white    sm:h-20  text-white absolute z-10"
+            className="right-0 h-10 w-10 cursor-pointer border-2 shadow-sm  rounded-full dark:bg-black border-white    sm:h-12 sm:w-12 hover:bg-white  text-white absolute z-10"
             size={40}
           />
         ) : (
           <MdOutlineDarkMode
             onClick={toggleDarkMode}
-            className="right-0 text-black h-10 w-10 cursor-pointer border-2 rounded-full dark:bg-white  bg-white shadow-md    sm:h-20   absolute z-10"
+            className="right-0 h-10 w-10 cursor-pointer border-2 shadow-sm  rounded-full dark:bg-white border-black    sm:h-12 sm:w-12  text-black absolute z-10"
             size={40}
           />
         )}
