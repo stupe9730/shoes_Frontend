@@ -8,7 +8,7 @@ import { PiWebhooksLogo } from "react-icons/pi";
 import Loader from "./Loader";
 
 const Men = () => {
-  const [logo, setLogo] = useState(false);
+  const [logo, setLogo] = useState();
   const [selectedData, setSelectedData] = useState({
     color: "",
     size: "",
@@ -143,7 +143,7 @@ const Men = () => {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: 100, opacity: 0 }}
           transition={{ type: "spring", stiffness: 50, damping: 30 }}
-          className="your-css-classes sm:gap-8   dark:bg-black grid grid-cols-12  lg:px-10 md:px-10  w-full sm:ps-4 md:ps-12 pt-7 "
+          className="your-css-classes sm:gap-8   dark:bg-black grid grid-cols-11 px-2  lg:px-10 md:px-10  w-full sm:ps-4 md:ps-12 pt-7 "
         >
           <AnimatePresence mode="wait">
             {logo && (
@@ -153,7 +153,7 @@ const Men = () => {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: "-100%", opacity: 0, type: "spring" }}
                 transition={{ type: "spring", duration: 1 }}
-                className="z-20 gap-8  dark:bg-black lg:col-span-4 md:col-span-3  ms-3 sm:col-span-12  col-span-11 lg:w-72 md:w-52 md:mx-auto sm:w-11/12 sticky top-0"
+                className="z-20 gap-8  dark:bg-black lg:col-span-3 md:col-span-2   sm:col-span-12  col-span-12  lg:w-72 md:w-52 md:mx-auto sm:w-11/12 sticky "
               >
                 {/* Filters */}
                 <div
@@ -163,7 +163,7 @@ const Men = () => {
                       : "hidden md:col-span-3 gap-0 lg:w-72  md:w-52"
                   }`}
                 >
-                  <div className="flex justify-between">
+                  <div className="flex  justify-between">
                     <p className="font-bold dark:text-white my-3 underline">
                       SHOP BY
                     </p>
@@ -181,6 +181,7 @@ const Men = () => {
                           page: currentPage,
                           limit: 6,
                         });
+                        setLogo(false);
                       }}
                       className="btn me-2 btn-active btn-sm btn-error text-tran capitalize dark:text-white"
                     >
@@ -210,13 +211,13 @@ const Men = () => {
                 </div>
 
                 {/* Color Filter */}
-                <div className="flex justify-between items-center my-3">
+                <div className="flex justify-between  items-center my-3">
                   <p className="dark:text-white font-bold font-serif text-2xl">
                     COLOR'S
                   </p>
                   <button
                     onClick={() => setLogo(false)}
-                    className="btn btn-success me-2 dark:text-white btn-sm"
+                    className="btn btn-success me-2  dark:text-white btn-sm"
                   >
                     Save Changes
                   </button>
@@ -240,7 +241,7 @@ const Men = () => {
                         name="color"
                         type="radio"
                         id="color"
-                        className="me-2 checkbox-secondary w-6 h-6 my-2 border-2 cursor-pointer"
+                        className="me-2 bg-red-500 flex checkbox-secondary w-6 h-6 my-2 border-2 cursor-pointer"
                         checked={
                           !selectedData.filter && selectedData.color === color
                         }
@@ -287,13 +288,18 @@ const Men = () => {
             )}
           </AnimatePresence>
 
-          <div className="md:col-span-9 lg:col-span-8   col-span-12">
+          <div
+            className={`md:col-span-9 lg:col-span-8  col-span-12 ${
+              logo ? "hidden md:block" : ""
+            }`}
+          >
             {/* Is Loading Code */}
             {isLoading ? (
-              // <Loader />
-              <div>Temp Loading</div>
+              <Loader />
             ) : (
-              <div className="grid grid-cols-12 gap-2 h-full sm:h-auto sm:gap-5 lg:mx-0 md:mx-8  mx-1 ">
+              <div
+                className={`grid grid-cols-12 gap-2 h-full sm:h-auto sm:gap-5 lg:mx-0 md:mx-8  mx-1 ${logo}`}
+              >
                 {data && data.result.length > 0 ? (
                   <AnimatePresence>
                     {data.result.map((item) => (
@@ -355,42 +361,45 @@ const Men = () => {
             )}
 
             {/* Pagination */}
-            {data && data.totalPages > 1 && (
-              <ReactPaginate
-                previousLabel={<BsChevronLeft />}
-                nextLabel={<BsChevronRight />}
-                breakLabel={"..."}
-                pageCount={data.totalPages}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageClick}
-                containerClassName={
-                  "flex dark:text-white justify-center space-x-2 mt-4"
-                }
-                pageClassName={
-                  "px-3 py-1 border rounded hover:bg-blue-500 hover:text-white"
-                }
-                activeClassName={"bg-blue-500  text-white"}
-                previousClassName={
-                  "px-3  py-2 border rounded hover:bg-blue-500 hover:text-white"
-                }
-                nextClassName={
-                  "px-3 py-2 border rounded hover:bg-blue-500 hover:text-white"
-                }
-                disabledClassName={"opacity-50 cursor-not-allowed"}
-              />
-            )}
+            <div>
+              {data && data.totalPages > 1 && (
+                <ReactPaginate
+                  previousLabel={<BsChevronLeft />}
+                  nextLabel={<BsChevronRight />}
+                  breakLabel={"..."}
+                  pageCount={data.totalPages}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageClick}
+                  // className="z-50"
+                  containerClassName={
+                    "flex dark:text-white  justify-center space-x-2 mt-4"
+                  }
+                  pageClassName={
+                    "px-3 py-1 border rounded hover:bg-blue-500 hover:text-white"
+                  }
+                  activeClassName={"bg-blue-500  text-white"}
+                  previousClassName={
+                    "px-3  py-2 border rounded hover:bg-blue-500 hover:text-white"
+                  }
+                  nextClassName={
+                    "px-3 py-2 border rounded hover:bg-blue-500 hover:text-white"
+                  }
+                  disabledClassName={"opacity-50 cursor-not-allowed"}
+                />
+              )}
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>
       {/* Small screen filter button */}
       <div>
-        <div className="fixed bottom-16 sm:bottom-24 sm:right-2 z-50 right-1">
+        <div className="fixed bottom-16 sm:bottom-24 dark:border-black  sm:right-2 z-50 right-2">
           <div
             onClick={() => setLogo(!logo)}
-            className="px-2 dark:bg-black dark:text-white py-2 cursor-pointer block md:hidden shadow-lg border-2 rounded-full text-2xl bg-slate-50"
+            className="px-2 dark:bg-black border-black dark:border-white   dark:text-white py-2 cursor-pointer block md:hidden shadow-lg border-2 rounded-full text-2xl bg-slate-50"
           >
-            <BsSliders className="text-lg sm:text-2xl" />
+            <BsSliders className="text-2xl sm:text-2xl" />
           </div>
         </div>
       </div>

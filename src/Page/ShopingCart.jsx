@@ -127,7 +127,7 @@ const ShopingCart = () => {
                     </tbody>
                   </table>
                 </div>
-                <div className="sm:ms-4 mt-3  block md:w-[25%] dark:bg-slate-800  ">
+                <div className="sm:ms-4 mt-3 shadow-xl  block md:w-[25%] dark:bg-slate-800  ">
                   <div className="border-1 dark:text-white p-2">
                     <h2 className="text-xl dark:text-slate-200 font-bold mb-3">
                       Order summary

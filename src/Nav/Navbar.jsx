@@ -348,17 +348,17 @@ const Navbar = ({ toggleDarkMode, dark }) => {
           )}
         </AnimatePresence>
       </motion.nav>
-      <div className="z-50 sm:bottom-20 bottom-14 fixed right-1 w-full">
+      <div className="z-50 sm:bottom-20 bottom-14 fixed right-2 w-full">
         {dark ? (
           <MdOutlineDarkMode
             onClick={toggleDarkMode}
-            className="right-0 h-10 w-10 cursor-pointer border-2 shadow-sm  rounded-full dark:bg-black border-white    sm:h-12 sm:w-12 hover:bg-white  text-white absolute z-10"
+            className="right-0 h-11 w-11 cursor-pointer border-2 shadow-sm  rounded-full dark:bg-black border-white    sm:h-12 sm:w-12 hover:bg-white  text-white absolute z-10"
             size={40}
           />
         ) : (
           <MdOutlineDarkMode
             onClick={toggleDarkMode}
-            className="right-0 h-10 w-10 cursor-pointer border-2 shadow-sm  rounded-full dark:bg-white border-black    sm:h-12 sm:w-12  text-black absolute z-10"
+            className="right-0 h-11 w-11 cursor-pointer border-2 shadow-sm  rounded-full dark:bg-white border-black    sm:h-12 sm:w-12  text-black absolute z-10"
             size={40}
           />
         )}

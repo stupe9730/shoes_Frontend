@@ -88,7 +88,7 @@ const Cart = () => {
   return (
     data && (
       <>
-        {(isLoading || isCartLoading) && <Loader />}
+        {isLoading && isCartLoading && <Loader />}
         <div className="md:px-20 px-3  sm:px-6 dark:bg-black dark:text-white">
           <div className="py-4">
             <Link className="text-blue-700 dark:text-white ">Home / </Link>
