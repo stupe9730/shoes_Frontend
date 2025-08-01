@@ -84,12 +84,14 @@ const Cart = () => {
       navigate("/shoping");
     }
   }, [isCartSuccess, isCartLoading, isCartError]);
+  if (isLoading || isCartLoading) {
+    return <Loader />;
+  }
 
   return (
     data && (
       <>
-        {isLoading && isCartLoading && <Loader />}
-        <div className="md:px-20 px-3  sm:px-6 dark:bg-black dark:text-white">
+        <div className="md:px-20 px-4  sm:px-6 dark:bg-black dark:text-white">
           <div className="py-4">
             <Link className="text-blue-700 dark:text-white ">Home / </Link>
             <Link to={`/Men`} className="text-blue-700 dark:text-white ">

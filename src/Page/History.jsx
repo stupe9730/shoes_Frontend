@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useLazyGetOrderQuery } from "../redux/userApi";
 import { useSelector } from "react-redux";
+import Loader from "./Loader";
 
 const Histroy = () => {
   const { auth } = useSelector((state) => state.user);
   console.log(auth);
 
-  const [HistoryData, { data }] = useLazyGetOrderQuery();
+  const [HistoryData, { data, isLoading }] = useLazyGetOrderQuery();
   const subtotal =
     data &&
     data.reduce((sum, item) => {
@@ -23,6 +24,7 @@ const Histroy = () => {
 
   return (
     <>
+      {isLoading && <Loader />}
       <div class="alert bg-slate-400 border-none my-3 flex justify-center">
         <div className="text-3xl font-bold">Your Orders</div>
       </div>

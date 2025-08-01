@@ -19,7 +19,9 @@ const Men = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
-        setLogo(false); // Small screen (like mobile)
+        if (logo) {
+          setLogo(false); // Small screen (like mobile)
+        }
       } else {
         setLogo(true); // Medium or larger screen
       }
@@ -289,7 +291,7 @@ const Men = () => {
           </AnimatePresence>
 
           <div
-            className={`md:col-span-9 lg:col-span-8  col-span-12 ${
+            className={`md:col-span-9 lg:col-span-8   col-span-12 ${
               logo ? "hidden md:block" : ""
             }`}
           >
@@ -298,7 +300,7 @@ const Men = () => {
               <Loader />
             ) : (
               <div
-                className={`grid grid-cols-12 gap-2 h-full sm:h-auto sm:gap-5 lg:mx-0 md:mx-8  mx-1 ${logo}`}
+                className={`grid  grid-cols-12 gap-2 h-full sm:h-auto sm:gap-5 lg:mx-0 md:mx-8  mx-1 ${logo}`}
               >
                 {data && data.result.length > 0 ? (
                   <AnimatePresence>
