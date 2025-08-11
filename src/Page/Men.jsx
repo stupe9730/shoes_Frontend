@@ -57,7 +57,7 @@ const Men = () => {
       [name]: value,
     }));
     window.scroll({
-      top: 200,
+      top: 180,
       behavior: "smooth",
     });
     // Fetch the products with all filters applied
@@ -100,6 +100,7 @@ const Men = () => {
       });
     }
   };
+  console.log(currentPage);
 
   // Load initial data when the component mounts
   useEffect(() => {
@@ -185,7 +186,29 @@ const Men = () => {
                         });
                         setLogo(false);
                       }}
-                      className="btn me-2 btn-active btn-sm btn-error text-tran capitalize dark:text-white"
+                      className="btn md:hidden me-2 btn-active btn-sm btn-error text-tran capitalize dark:text-white"
+                    >
+                      Clear Filter
+                    </button>
+                    <button
+                      onClick={() => {
+                        setCurrentPage(1);
+                        setSelectedData({
+                          ...selectedData,
+                          filter: true,
+                          price: 802,
+                          size: "",
+                          color: "",
+                        });
+                        getProducts({
+                          selecter: "Man",
+                          page: currentPage,
+                          limit: 6,
+                        });
+
+                        // setLogo(false);
+                      }}
+                      className="btn hidden sm:block me-2 btn-active btn-sm btn-error text-tran capitalize dark:text-white"
                     >
                       Clear Filter
                     </button>
@@ -219,7 +242,7 @@ const Men = () => {
                   </p>
                   <button
                     onClick={() => setLogo(false)}
-                    className="btn btn-success me-2  dark:text-white btn-sm"
+                    className="btn btn-success me-2 md:hidden dark:text-white btn-sm"
                   >
                     Save Changes
                   </button>
@@ -229,7 +252,7 @@ const Men = () => {
                   {[
                     "White",
                     "Black",
-                    "Grey",
+                    "Gray",
                     "Blue",
                     "Brown",
                     "Green",
@@ -242,7 +265,7 @@ const Men = () => {
                         value={selectedData.filter ? color : color}
                         name="color"
                         type="radio"
-                        id="color"
+                        id={color}
                         className="me-2 bg-red-500 flex checkbox-secondary w-6 h-6 my-2 border-2 cursor-pointer"
                         checked={
                           !selectedData.filter && selectedData.color === color
@@ -356,7 +379,7 @@ const Men = () => {
                   </AnimatePresence>
                 ) : (
                   <div className="text-end flex justify-center col-span-12 text-3xl dark:text-white">
-                    {!logo && <p>No Product Found</p>}
+                    {logo && <p>No Product Found</p>}
                   </div>
                 )}
               </div>
