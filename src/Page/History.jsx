@@ -1,11 +1,21 @@
 import { useEffect } from "react";
-import { useLazyGetOrderQuery } from "../redux/userApi";
+import {
+  useLazyGetOrderQuery,
+  // useLazyRemoveProductQuery,
+  useRemoveProductMutation,
+} from "../redux/userApi";
 import { useSelector } from "react-redux";
 import Loader from "./Loader";
+import { use } from "react";
+import { toast } from "react-toastify";
 
 const Histroy = () => {
   const { auth } = useSelector((state) => state.user);
   console.log(auth);
+  const [
+    removeProduct,
+    { data: removedata, isLoading: removeLoading, isSuccess },
+  ] = useRemoveProductMutation();
 
   const [HistoryData, { data, isLoading }] = useLazyGetOrderQuery();
   const subtotal =
@@ -21,7 +31,11 @@ const Histroy = () => {
   }, []);
 
   console.log(data);
-
+  useEffect(() => {
+    if (isSuccess) {
+      toast.warning("Something Wrong");
+    }
+  }, [isSuccess]);
   return (
     <>
       {isLoading && <Loader />}
@@ -74,6 +88,13 @@ const Histroy = () => {
                                 <p className="my-1">Color : {item.color}</p>
                                 <p className="my-1">Size : {item.size}</p>
                                 <p className="my-1">Cat : {item.category}</p>
+                                {console.log(item.ProId)}
+                                <button
+                                  onClick={(e) => removeProduct(item.ProId)}
+                                  className="btn btn-link text-red-400 btn-sm absolute sm:right-[6vw] my-3 "
+                                >
+                                  Remove
+                                </button>
                               </div>
                               <div className="block w-28 px-1">
                                 <div className="sm:px-6 pt-7 md:hidden">
@@ -86,6 +107,7 @@ const Histroy = () => {
                                 <div className="md:hidden  mt-1 sm:px-6">
                                   Total : ₹ {(item.price * item.qut).toFixed(2)}
                                 </div>
+
                                 <div className="md:hidden my-4">
                                   <button
                                     onClick={(e) =>

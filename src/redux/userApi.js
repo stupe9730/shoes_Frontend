@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_MONGO_URL}/api/user`,
+    baseUrl: `${import.meta.env.VITE_MONGO_URL}api/user`,
     credentials: "include",
   }),
   tagTypes: ["product", "cart", "order"],
@@ -106,6 +106,19 @@ export const userApi = createApi({
         transformResponse: (data) => data.combinedData,
         providesTags: ["cart"],
       }),
+      RemoveProduct: builder.mutation({
+        query: (id) => {
+          console.log(id);
+
+          return {
+            url: `/removeOrder/${id}`,
+            method: "DELETE",
+            // params: cartData,
+          };
+        },
+        transformResponse: (data) => data,
+        providesTags: ["cart"],
+      }),
     };
   },
 });
@@ -120,4 +133,5 @@ export const {
 
   useAddOrderMutation,
   useLazyGetOrderQuery,
+  useRemoveProductMutation,
 } = userApi;
