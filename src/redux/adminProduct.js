@@ -7,7 +7,7 @@ export const adminProduct = createApi({
   //     credentials: "include",
   //   }),
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_MONGO_URL}api/admin`,
+    baseUrl: `${import.meta.env.VITE_MONGO_URL}/api/admin`,
     credentials: "include",
   }),
   tagTypes: ["products"],

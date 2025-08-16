@@ -7,7 +7,7 @@ export const authApi = createApi({
   //   credentials: "include",
   // }),
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_MONGO_URL}api/auth`,
+    baseUrl: `${import.meta.env.VITE_MONGO_URL}/api/auth`,
     credentials: "include",
   }),
   tagTypes: ["auth"],

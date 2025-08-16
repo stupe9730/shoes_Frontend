@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_MONGO_URL}api/user`,
+    baseUrl: `${import.meta.env.VITE_MONGO_URL}/api/user`,
     credentials: "include",
   }),
   tagTypes: ["product", "cart", "order"],
