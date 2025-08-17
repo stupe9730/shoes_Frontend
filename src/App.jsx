@@ -57,7 +57,7 @@ const App = () => {
   // }, [authError])
 
   return (
-    <div className="dark:bg-black ">
+    <div className="dark:bg-black min-h-screen  ">
       <BrowserRouter>
         <ToastContainer />
         <Navbar toggleDarkMode={toggleDarkMode} dark={darkMode} />

@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../Nav/Logo.svg";
+import logo from "../Nav/Logo_2.png";
 import { motion } from "framer-motion";
 import { PiWebhooksLogo } from "react-icons/pi"; // Adjust if using a different package
 
