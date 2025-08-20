@@ -34,14 +34,14 @@ const Histroy = () => {
   }, [isSuccess]);
   return (
     <>
-      {isLoading && removeLoading && <Loader />}
+      {(isLoading || removeLoading) && <Loader />}
       <div class="alert bg-slate-400 border-none my-3 flex justify-center">
         <div className="text-3xl font-bold">Your Orders</div>
       </div>
-      {data && data.map((item) => item.remo.img) ? (
+      {data && data != 0 ? (
         <div className=" ">
-          <div className="md:flex   ">
-            <div class="   relative  dark:bg-gray-500 w-full   md:w-full md:ms-16 shadow-md sm:rounded-lg">
+          <div className="md:flex">
+            <div class="relative  dark:bg-gray-500 w-full   md:w-full md:ms-16 shadow-md sm:rounded-lg">
               <table className="w-full h-80 dark:text-white  text-sm text-left rtl:text-right text-gray-500 ">
                 <thead className="text-xs text -gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
@@ -60,7 +60,7 @@ const Histroy = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item) => item.remo.img) &&
+                  {data &&
                     data.map((item) => (
                       <tr
                         className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
@@ -72,9 +72,9 @@ const Histroy = () => {
                         >
                           <div className="flex  dark:text-white gap-3">
                             <img
-                              src={`${item.remo.img}`}
+                              src={item?.remo?.img || "/fallback.png"}
+                              alt={item?.remo?.name || "No Image"}
                               className="sm:w-44  sm:h-44 w-28 rounded-md h-28  dark:bg-slate-700 bg-slate-100"
-                              alt=""
                             />
                             <div className="flex w-7/12 justify-between ">
                               <div>
@@ -110,7 +110,7 @@ const Histroy = () => {
                                 </div>
                                 <div className="md:hidden  mt-1 sm:px-6">
                                   Total : ₹{" "}
-                                  {item.remo.price * item.qut.toFixed(2)}
+                                  {(item.remo.price * item.qut).toFixed(2)}
                                 </div>
 
                                 <div className="md:hidden my-4">

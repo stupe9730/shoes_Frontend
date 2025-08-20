@@ -14,7 +14,7 @@ import { Link, json, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "./logo.png";
-import { MdClose, MdDarkMode } from "react-icons/md";
+import { MdClose, MdDarkMode, MdOutlineBorderAll } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../redux/adminSlice";
@@ -248,8 +248,8 @@ const Navbar = ({ toggleDarkMode, dark }) => {
                               navigate("/histroy");
                             }}
                           >
-                            <HiOutlineClock className="text-lg text-green-500" />
-                            History
+                            <MdOutlineBorderAll className="text-lg text-green-500" />
+                            Orders
                           </button>
 
                           <button
