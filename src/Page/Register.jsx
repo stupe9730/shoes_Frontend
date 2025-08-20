@@ -35,7 +35,7 @@ const Register = () => {
     <>
       {isLoading && <Loader />}
       {
-        <section section class="bg-gray-50 pt-8 dark:bg-gray-900">
+        <section section class="bg-gray-50 pt-8 dark:bg-black">
           <div class="flex flex-col items-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
               <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -57,7 +57,12 @@ const Register = () => {
                       <option name="loger" selected value="User">
                         User
                       </option>
-                      <option name="loger" value="Admin">
+                      <option
+                        className="text-gray-600   disabled bg-none"
+                        name="loger"
+                        value="Admin"
+                        disabled
+                      >
                         Admin
                       </option>
                     </select>
@@ -68,15 +73,17 @@ const Register = () => {
                     <label
                       for="name"
                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    ></label>
-                    Name
+                    >
+                      Name
+                    </label>
+
                     <input
                       onChange={handleRegister}
                       type="text"
                       name="name"
                       id="name"
                       placeholder="Enter Your Name"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700   dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required=""
                     />
                   </div>

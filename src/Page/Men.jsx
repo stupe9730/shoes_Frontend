@@ -347,6 +347,8 @@ const Men = () => {
                             whileHover={{ scale: 1.03 }}
                           >
                             {console.log(item.img)}
+                            {/* <div class="drop-shadow-lg">Test</div> */}
+
                             <motion.img
                               src={item.img}
                               alt={item.name}
@@ -354,6 +356,8 @@ const Men = () => {
                                 transition: "transform 0.4s",
                                 transformStyle: "preserve-3d",
                                 filter: "brightness(100%)",
+                                object: "contain",
+                                textShadow: "revert-layer",
                               }}
                               initial={{ rotateY: 0 }}
                               whileHover={{

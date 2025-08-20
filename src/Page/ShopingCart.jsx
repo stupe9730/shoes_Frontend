@@ -95,7 +95,7 @@ const ShopingCart = () => {
                                 </p>
                                 <img
                                   src={`  ${item.img}`}
-                                  className="sm:w-44 sm:h-44 w-32 h-32 rounded-sm  dark:bg-slate-700 bg-slate-100"
+                                  className="sm:w-44 sm:h-44 w-32 h-32 rounded-lg hover:shadow-md hover:transition-shadow hover:shadow-sky-500  dark:bg-slate-700 bg-slate-100"
                                   alt=""
                                 />
                                 <div>
@@ -106,7 +106,7 @@ const ShopingCart = () => {
                                   <p className="my-1">Size : {item.size}</p>
                                   <p className="my-1">Cat : {item.category}</p>
                                   <button
-                                    className="my-1 underline italic text-[15px]"
+                                    className="my-1 underline text-red-300 italic text-[15px]"
                                     onClick={(e) => removecart(item.ProId)}
                                   >
                                     Remove
@@ -156,9 +156,9 @@ const ShopingCart = () => {
           ) : (
             <div className="flex flex-col justify-center items-center">
               <p className="dark:text-white text-4xl md:text-7xl text-center">
-                No Product found
+                No Product Found
               </p>
-              <Link type="button" class="btn w-30 mt-9 btn-primary" to="/">
+              <Link type="button" class="btn w-30 mt-9 btn-error" to="/">
                 Back Home
               </Link>
             </div>

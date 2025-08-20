@@ -104,7 +104,7 @@ export const userApi = createApi({
           };
         },
         transformResponse: (data) => data.combinedData,
-        providesTags: ["cart"],
+        providesTags: ["order"],
       }),
       RemoveProduct: builder.mutation({
         query: (id) => {
@@ -117,7 +117,7 @@ export const userApi = createApi({
           };
         },
         transformResponse: (data) => data,
-        providesTags: ["cart"],
+        providesTags: ["order"],
       }),
     };
   },

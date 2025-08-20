@@ -337,7 +337,7 @@ const Login = () => {
                     </p>
                   </div>
 
-                  <div className="mt-5">
+                  <div className="mt-5 ">
                     <div>
                       <div className="grid gap-y-4">
                         <div>
@@ -447,7 +447,11 @@ const Login = () => {
       </div>
       {/* <button className="btn" onClick={()=>window.my_modal_7.showModal()}>open modal</button> */}
       <dialog id="my_modal_7" className="modal">
-        <form method="dialog" className="modal-box" onSubmit={handleSubmit}>
+        <form
+          method="dialog"
+          className="modal-box dark:bg-gray-800 dark:text-white"
+          onSubmit={handleSubmit}
+        >
           <button
             type="button"
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -464,13 +468,13 @@ const Login = () => {
               <input
                 type={showPass ? "text" : "password"}
                 placeholder="Type Password"
-                className="input  input-bordered w-full my-3 pr-12"
+                className="input dark:bg-slate-700 input-bordered w-full my-3 pr-12"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 type="button"
-                className="absolute right-3 top-5 text-sm text-blue-500"
+                className="absolute  right-3 top-5 text-sm text-blue-500"
                 onClick={() => setShowPass(!showPass)}
               >
                 {showPass ? "Hide" : "Show"}
@@ -482,7 +486,7 @@ const Login = () => {
               <input
                 type={showConfirm ? "text" : "password"}
                 placeholder="Confirm Password"
-                className="input input-bordered w-full my-3 pr-12"
+                className="input dark:bg-slate-700 input-bordered w-full my-3 pr-12"
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
               />

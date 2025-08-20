@@ -369,38 +369,64 @@ const CheckOut = () => {
             Open Modal
         </button> */}
         <div
-          class={`z-10 ${!submitdata ? "hidden" : "relative"}`}
+          className={`z-10 ${!submitdata ? "hidden" : "relative  "}`}
           aria-labelledby="modal-title"
           role="dialog"
           aria-modal="true"
         >
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
-            <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-2xl p-6 sm:p-8 transition-transform transform scale-100 max-h-screen overflow-y-auto">
-              <div className="text-center">
-                <h1 className="text-3xl sm:text-4xl font-bold text-indigo-600 mb-6">
-                  Choose Payment Option
+          <div className="fixed top-10 inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
+            <div
+              className="
+            bg-white dark:bg-slate-900 
+            rounded-none sm:rounded-2xl 
+            shadow-2xl 
+            w-full h-full sm:w-full sm:max-w-2xl sm:h-auto 
+            p-4 sm:p-8 
+            transition-transform transform scale-100 
+            max-h-screen overflow-y-auto
+          "
+            >
+              {/* Heading */}
+              <div className="text-center   sticky top-0 bg-white dark:bg-slate-900 py-3 z-10 shadow-md">
+                <h1 className="text-2xl sm:text-4xl font-bold text-white">
+                  Choose A Payment Method
                 </h1>
               </div>
-
-              <div className="flex flex-col sm:flex-row justify-around items-center gap-6 sm:gap-4">
+              {/* Options */}
+              <div className="flex flex-col sm:flex-row justify-around items-center gap-6 sm:gap-4 mt-6">
                 {/* RazorPay Option */}
                 <label
                   htmlFor="radio-1"
-                  className={`cursor-pointer w-full  sm:w-1/2 border-2 border-indigo-500 rounded-xl p-4 hover:shadow-lg transition duration-300 flex flex-col items-center ${
-                    payoption && "bg-blue-700 border-blue-900"
+                  className={`cursor-pointer w-full sm:w-1/2 border-2 rounded-xl p-4 hover:shadow-lg transition duration-300 flex flex-col items-center ${
+                    payoption === "razorpay"
+                      ? "bg-blue-700 border-blue-900 text-white"
+                      : "border-indigo-500"
                   }`}
                 >
-                  <BsCashCoin size={100} className="dark:text-white" />
+                  <BsCashCoin
+                    size={80}
+                    className={
+                      payoption === "razorpay"
+                        ? "text-white"
+                        : "dark:text-white"
+                    }
+                  />
                   <input
-                    onChange={() => setPayoption(true)}
+                    onChange={() => setPayoption("razorpay")}
                     type="radio"
                     id="radio-1"
                     name="payment-option"
                     className="hidden"
                   />
-                  <span className="text-lg font-semibold dark:text-white pt-2 text-indigo-600">
+                  <span
+                    className={`text-base sm:text-lg font-semibold pt-2 ${
+                      payoption === "razorpay"
+                        ? "text-white"
+                        : "text-indigo-600 dark:text-white"
+                    }`}
+                  >
                     RazorPay
                   </span>
                 </label>
@@ -408,19 +434,32 @@ const CheckOut = () => {
                 {/* COD Option */}
                 <label
                   htmlFor="radio-2"
-                  className={`cursor-pointer w-full  sm:w-1/2 border-2 border-indigo-500 rounded-xl p-4 hover:shadow-lg transition duration-300 flex flex-col items-center ${
-                    !payoption && "bg-blue-700 border-blue-900"
+                  className={`cursor-pointer w-full sm:w-1/2 border-2 rounded-xl p-4 hover:shadow-lg transition duration-300 flex flex-col items-center ${
+                    payoption === "cod"
+                      ? "bg-blue-700 border-blue-900 text-white"
+                      : "border-indigo-500"
                   }`}
                 >
-                  <TbTruckDelivery size={100} className="dark:text-white" />
+                  <TbTruckDelivery
+                    size={80}
+                    className={
+                      payoption === "cod" ? "text-white" : "dark:text-white"
+                    }
+                  />
                   <input
-                    onChange={() => setPayoption(false)}
+                    onChange={() => setPayoption("cod")}
                     type="radio"
                     id="radio-2"
                     name="payment-option"
                     className="hidden"
                   />
-                  <span className="text-lg font-semibold dark:text-white pt-2 text-indigo-600">
+                  <span
+                    className={`text-base sm:text-lg font-semibold pt-2 ${
+                      payoption === "cod"
+                        ? "text-white"
+                        : "text-indigo-600 dark:text-white"
+                    }`}
+                  >
                     Cash On Delivery
                   </span>
                 </label>
@@ -433,10 +472,10 @@ const CheckOut = () => {
                   onClick={() => setSubmitdata(false)}
                   className="bg-red-500 hover:bg-red-600 text-white font-medium px-6 py-2 rounded-md shadow-md transition duration-300"
                 >
-                  Close
+                  Cancel
                 </button>
 
-                {payoption ? (
+                {payoption === "razorpay" ? (
                   <button
                     type="button"
                     onClick={() => navigate("/order", { state: { orderData } })}
@@ -444,7 +483,7 @@ const CheckOut = () => {
                   >
                     Pay
                   </button>
-                ) : (
+                ) : payoption === "cod" ? (
                   <button
                     type="button"
                     onClick={() => addOrder(data)}
@@ -452,7 +491,7 @@ const CheckOut = () => {
                   >
                     Order
                   </button>
-                )}
+                ) : null}
               </div>
             </div>
           </div>
