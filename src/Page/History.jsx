@@ -64,7 +64,7 @@ const Histroy = () => {
                     data.map((item) => (
                       <tr
                         className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
-                        key={item.remo.id}
+                        key={item.remo?.id}
                       >
                         <th
                           scope="row"
@@ -84,7 +84,7 @@ const Histroy = () => {
                                 <p className="my-1">
                                   Color : {item.remo?.color}
                                 </p>
-                                <p className="my-1">Size : {item.remo.size}</p>
+                                <p className="my-1">Size : {item.remo?.size}</p>
                                 <p className="my-1">
                                   Cat : {item.remo?.category}
                                 </p>
