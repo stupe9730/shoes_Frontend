@@ -38,7 +38,7 @@ const Histroy = () => {
       <div class="alert bg-slate-400 border-none my-3 flex justify-center">
         <div className="text-3xl font-bold">Your Orders</div>
       </div>
-      {data && data != 0 ? (
+      {data && data.map((item) => item.remo.img) ? (
         <div className=" ">
           <div className="md:flex   ">
             <div class="   relative  dark:bg-gray-500 w-full   md:w-full md:ms-16 shadow-md sm:rounded-lg">
@@ -60,108 +60,93 @@ const Histroy = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data &&
+                  {data.map((item) => item.remo.img) &&
                     data.map((item) => (
-                      <>
-                        {item.remo ? (
-                          <tr
-                            className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
-                            key={item.remo.id}
-                          >
-                            <th
-                              scope="row"
-                              className=" px-1 ms:px-6 py-2 text-gray-900 font-normal whitespace-nowrap "
-                            >
-                              <div className="flex  dark:text-white gap-3">
-                                <img
-                                  src={`${item.remo.img}`}
-                                  className="sm:w-44  sm:h-44 w-28 rounded-md h-28  dark:bg-slate-700 bg-slate-100"
-                                  alt=""
-                                />
-                                <div className="flex w-7/12 justify-between ">
-                                  <div>
-                                    <p className="my-1   font-bold text-[15px] w-20 relative">
-                                      {item.remo.name}
-                                    </p>
-                                    <p className="my-1">
-                                      Color : {item.remo.color}
-                                    </p>
-                                    <p className="my-1">
-                                      Size : {item.remo.size}
-                                    </p>
-                                    <p className="my-1">
-                                      Cat : {item.remo.category}
-                                    </p>
-                                    {console.log(item.remo.ProId)}
-                                    <button
-                                      onClick={(e) => {
-                                        // removeProduct(item._id),
-                                        window.my_modal_8.showModal(),
-                                          setCancel(item._id);
-                                      }}
-                                      className="btn btn-outline  text-red-400 btn-sm absolute sm:right-[6vw] md:my-7  sm:mt-0  mt-3 "
-                                    >
-                                      Cancel
-                                    </button>
-                                  </div>
-                                  <div className="block w-28 px-1">
-                                    <div className="sm:px-6 pt-7 md:hidden">
-                                      Price ₹ {item.remo.price}
-                                    </div>
-                                    {/* Show QUANTITY and Total columns only on medium and larger screens */}
-                                    <div className="md:hidden mt-1 sm:px-6">
-                                      Qut: {item.qut}
-                                    </div>
-                                    <div className="md:hidden  mt-1 sm:px-6">
-                                      Total : ₹{" "}
-                                      {item.remo.price * item.qut.toFixed(2)}
-                                    </div>
+                      <tr
+                        className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                        key={item.remo.id}
+                      >
+                        <th
+                          scope="row"
+                          className=" px-1 ms:px-6 py-2 text-gray-900 font-normal whitespace-nowrap "
+                        >
+                          <div className="flex  dark:text-white gap-3">
+                            <img
+                              src={`${item.remo.img}`}
+                              className="sm:w-44  sm:h-44 w-28 rounded-md h-28  dark:bg-slate-700 bg-slate-100"
+                              alt=""
+                            />
+                            <div className="flex w-7/12 justify-between ">
+                              <div>
+                                <p className="my-1   font-bold text-[15px] w-20 relative">
+                                  {item.remo.name}
+                                </p>
+                                <p className="my-1">
+                                  Color : {item.remo.color}
+                                </p>
+                                <p className="my-1">Size : {item.remo.size}</p>
+                                <p className="my-1">
+                                  Cat : {item.remo.category}
+                                </p>
+                                {console.log(item.remo.ProId)}
+                                <button
+                                  onClick={(e) => {
+                                    // removeProduct(item._id),
+                                    window.my_modal_8.showModal(),
+                                      setCancel(item._id);
+                                  }}
+                                  className="btn btn-outline  text-red-400 btn-sm absolute sm:right-[6vw] md:my-7  sm:mt-0  mt-3 "
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                              <div className="block w-28 px-1">
+                                <div className="sm:px-6 pt-7 md:hidden">
+                                  Price ₹ {item.remo.price}
+                                </div>
+                                {/* Show QUANTITY and Total columns only on medium and larger screens */}
+                                <div className="md:hidden mt-1 sm:px-6">
+                                  Qut: {item.qut}
+                                </div>
+                                <div className="md:hidden  mt-1 sm:px-6">
+                                  Total : ₹{" "}
+                                  {item.remo.price * item.qut.toFixed(2)}
+                                </div>
 
-                                    <div className="md:hidden my-4">
-                                      <button
-                                        onClick={(e) =>
-                                          window.my_modal_5.showModal()
-                                        }
-                                        className="btn btn-secondary  btn-sm relative sm:-right-[19vw]  "
-                                      >
-                                        Show
-                                      </button>
-                                    </div>
-                                  </div>
+                                <div className="md:hidden my-4">
+                                  <button
+                                    onClick={(e) =>
+                                      window.my_modal_5.showModal()
+                                    }
+                                    className="btn btn-secondary  btn-sm relative sm:-right-[19vw]  "
+                                  >
+                                    Show
+                                  </button>
                                 </div>
                               </div>
-                            </th>
-
-                            <td className="px-6 py-4 hidden md:table-cell">
-                              ₹ {item.remo.price}
-                            </td>
-                            {/* Show QUANTITY and Total columns only on medium and larger screens */}
-                            <td className="hidden md:table-cell px-6 py-4">
-                              {item.qut}
-                            </td>
-                            <td className="hidden md:table-cell px-6 py-4">
-                              ₹ {(item.remo.price * item.qut).toFixed(2)}
-                            </td>
-                            <td className="hidden md:table-cell px-6 py-4 ">
-                              <button
-                                onClick={(e) => window.my_modal_5.showModal()}
-                                className="btn btn-secondary btn-md "
-                              >
-                                Show
-                              </button>
-                            </td>
-                          </tr>
-                        ) : (
-                          <div className="w-full  text-center ">
-                            <div className="text-4xl h-full mt-8 text-center">
-                              No Orders History
                             </div>
-                            <button type="button" class="btn btn-info my-4">
-                              <Link to="/Men">Order Product </Link>
-                            </button>
                           </div>
-                        )}
-                      </>
+                        </th>
+
+                        <td className="px-6 py-4 hidden md:table-cell">
+                          ₹ {item.remo.price}
+                        </td>
+                        {/* Show QUANTITY and Total columns only on medium and larger screens */}
+                        <td className="hidden md:table-cell px-6 py-4">
+                          {item.qut}
+                        </td>
+                        <td className="hidden md:table-cell px-6 py-4">
+                          ₹ {(item.remo.price * item.qut).toFixed(2)}
+                        </td>
+                        <td className="hidden md:table-cell px-6 py-4 ">
+                          <button
+                            onClick={(e) => window.my_modal_5.showModal()}
+                            className="btn btn-secondary btn-md "
+                          >
+                            Show
+                          </button>
+                        </td>
+                      </tr>
                     ))}
                 </tbody>
               </table>
