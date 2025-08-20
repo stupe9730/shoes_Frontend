@@ -79,16 +79,16 @@ const Histroy = () => {
                             <div className="flex w-7/12 justify-between ">
                               <div>
                                 <p className="my-1   font-bold text-[15px] w-20 relative">
-                                  {item.remo.name}
+                                  {item.remo?.name}
                                 </p>
                                 <p className="my-1">
-                                  Color : {item.remo.color}
+                                  Color : {item.remo?.color}
                                 </p>
                                 <p className="my-1">Size : {item.remo.size}</p>
                                 <p className="my-1">
-                                  Cat : {item.remo.category}
+                                  Cat : {item.remo?.category}
                                 </p>
-                                {console.log(item.remo.ProId)}
+                                {console.log(item.remo?.ProId)}
                                 <button
                                   onClick={(e) => {
                                     // removeProduct(item._id),
@@ -102,7 +102,7 @@ const Histroy = () => {
                               </div>
                               <div className="block w-28 px-1">
                                 <div className="sm:px-6 pt-7 md:hidden">
-                                  Price ₹ {item.remo.price}
+                                  Price ₹ {item.remo?.price}
                                 </div>
                                 {/* Show QUANTITY and Total columns only on medium and larger screens */}
                                 <div className="md:hidden mt-1 sm:px-6">
@@ -110,7 +110,7 @@ const Histroy = () => {
                                 </div>
                                 <div className="md:hidden  mt-1 sm:px-6">
                                   Total : ₹{" "}
-                                  {(item.remo.price * item.qut).toFixed(2)}
+                                  {(item.remo?.price * item.qut).toFixed(2)}
                                 </div>
 
                                 <div className="md:hidden my-4">
@@ -129,14 +129,14 @@ const Histroy = () => {
                         </th>
 
                         <td className="px-6 py-4 hidden md:table-cell">
-                          ₹ {item.remo.price}
+                          ₹ {item.remo?.price}
                         </td>
                         {/* Show QUANTITY and Total columns only on medium and larger screens */}
                         <td className="hidden md:table-cell px-6 py-4">
                           {item.qut}
                         </td>
                         <td className="hidden md:table-cell px-6 py-4">
-                          ₹ {(item.remo.price * item.qut).toFixed(2)}
+                          ₹ {(item.remo?.price * item.qut).toFixed(2)}
                         </td>
                         <td className="hidden md:table-cell px-6 py-4 ">
                           <button
@@ -259,9 +259,8 @@ const Histroy = () => {
           </p>
         </form>
       </dialog>
-      {/* <button className="btn" onClick={() => }>
-        open modal
-      </button> */}
+
+      {/* Alert box */}
       <dialog id="my_modal_8" className="modal">
         <form
           method="dialog"
