@@ -72,7 +72,7 @@ const Histroy = () => {
                         >
                           <div className="flex  dark:text-white gap-3">
                             <img
-                              src={`  ${item.remo.img}`}
+                              src={`${item.remo.img}`}
                               className="sm:w-44  sm:h-44 w-28 rounded-md h-28  dark:bg-slate-700 bg-slate-100"
                               alt=""
                             />
