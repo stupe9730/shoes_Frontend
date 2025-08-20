@@ -264,13 +264,12 @@ const Histroy = () => {
       <dialog id="my_modal_8" className="modal">
         <form
           method="dialog"
-          className="modal-box dark:bg-slate-900 dark:text-white"
+          className="modal-box dark:bg-slate-900 hover:shadow-md hover:shadow-blue-500 dark:text-white"
         >
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-            ✕
-          </button>
-
-          <div> ⚠️⚠️ Are you sure you want to Cancel this order?</div>
+          <div className="my-2 text-xl sm:text-3xl">
+            {" "}
+            ⚠️⚠️ Are you sure you want to Cancel this order?
+          </div>
           <div className="text-end my-4">
             <button
               onClick={(e) => document.getElementById("my_modal_8").close()}
@@ -280,7 +279,10 @@ const Histroy = () => {
               No
             </button>
             <button
-              onClick={(e) => removeProduct(cancel)}
+              onClick={(e) => {
+                removeProduct(cancel),
+                  document.getElementById("my_modal_8").close();
+              }}
               type="button"
               class="btn mx-2 btn-sm btn-success  text-white"
             >
